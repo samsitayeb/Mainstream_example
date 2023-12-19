@@ -1,8 +1,8 @@
-# an example pipeline where we validate terraform code and use tflint
-# which can immediately highlight problems in our terraform configuration (IE invalid instance type etc)
+# an example pipeline where we validate terraform code
+# tflint can immediately highlight problems in our terraform configuration (IE invalid instance type etc)
+
 stages:
   - validate
-  - release
 
 validate:
   stage: validate
