@@ -1,0 +1,24 @@
+# an example pipeline where we validate terraform code and use tflint
+# which can immediately highlight problems in our terraform configuration (IE invalid instance type etc)
+stages:
+  - validate
+  - release
+
+validate:
+  stage: validate
+  image:
+    name: hashicorp/terraform:1.6.2
+  before_script:
+    - terraform --version
+  script:
+    - terraform init -backend=false -upgrade
+    - terraform fmt -check=true
+    - terraform validate
+
+tflint:
+  stage: validate
+  image:
+    name: ghcr.io/terraform-linters/tflint:v0.49.0
+    entrypoint: [""]
+  script:
+    - tflint --recursive --color --force
